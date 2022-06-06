@@ -1,0 +1,11 @@
+.card {
+    border: 2px solid var(--lighter);
+    border-radius: 5px;
+    padding: 20px;
+    margin-top: 4.5px;
+    margin-bottom: 4.5px;
+}
+
+.ghost {
+    display: none;
+}

@@ -1,0 +1,7 @@
+.actions button {
+    background-color: var(--dark);
+    border: none;
+    width: unset;
+    float: right;
+    margin: 5px;
+}
