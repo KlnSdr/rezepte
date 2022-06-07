@@ -1,6 +1,27 @@
 function openRecipeView(): HTMLElement {
     const container: HTMLDivElement = document.createElement('div');
 
+    const tablePersonen: HTMLTableElement = document.createElement('table');
+    container.appendChild(tablePersonen);
+
+    const trPersonen: HTMLTableRowElement = document.createElement('tr');
+    tablePersonen.appendChild(trPersonen);
+
+    const tdInputPersonen: HTMLTableCellElement = document.createElement('td');
+    trPersonen.appendChild(tdInputPersonen);
+
+    const inputPersonen: HTMLInputElement = document.createElement('input');
+    inputPersonen.type = 'number';
+    inputPersonen.value = '4';
+    inputPersonen.id = 'anzahlPersonen';
+    tdInputPersonen.appendChild(inputPersonen);
+
+    const tdPersonenText: HTMLTableCellElement = document.createElement('td');
+    tdPersonenText.innerText = 'Personen';
+    trPersonen.appendChild(tdPersonenText);
+
+    trPersonen.appendChild(document.createElement('td'));
+
     const ul: HTMLUListElement = document.createElement('ul');
     ul.id = 'ulZutaten';
     container.appendChild(ul);
@@ -21,7 +42,14 @@ function populateRecipeView(
     ingredients.forEach(
         (zutat: { name: string; amount: number; unit: string }) => {
             const li: HTMLLIElement = document.createElement('li');
-            li.innerText = `${zutat.name}: ${zutat.amount} ${zutat.unit}`;
+            li.innerText = `${zutat.name}: ${
+                zutat.amount *
+                parseInt(
+                    (document.getElementById(
+                        'anzahlPersonen'
+                    ) as HTMLInputElement).value
+                )
+            } ${zutat.unit}`;
             document.getElementById('ulZutaten')?.appendChild(li);
         }
     );

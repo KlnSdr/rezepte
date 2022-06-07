@@ -67,6 +67,16 @@ class card {
             state[this.id].ingredients,
             state[this.id].instructions
         );
+
+        (document.getElementById(
+            'anzahlPersonen'
+        ) as HTMLInputElement).addEventListener('input', () => {
+            document.getElementById('ulZutaten')!.innerHTML = '';
+            populateRecipeView(
+                state[this.id].ingredients,
+                state[this.id].instructions
+            );
+        });
     }
 
     render(parent: HTMLElement) {

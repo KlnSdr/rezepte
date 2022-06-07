@@ -43,6 +43,10 @@ class card {
         headline.setAttribute('disabled', '');
         (_a = document.getElementById('topNotchContent')) === null || _a === void 0 ? void 0 : _a.appendChild(headline);
         populateRecipeView(state[this.id].ingredients, state[this.id].instructions);
+        document.getElementById('anzahlPersonen').addEventListener('input', () => {
+            document.getElementById('ulZutaten').innerHTML = '';
+            populateRecipeView(state[this.id].ingredients, state[this.id].instructions);
+        });
     }
     render(parent) {
         parent.appendChild(this.element);

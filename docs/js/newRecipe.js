@@ -46,6 +46,21 @@ function renderNewRecipe() {
         newZutat();
     });
     container.appendChild(bttnNewZutat);
+    const tablePersonen = document.createElement('table');
+    container.appendChild(tablePersonen);
+    const trPersonen = document.createElement('tr');
+    tablePersonen.appendChild(trPersonen);
+    const tdInputPersonen = document.createElement('td');
+    trPersonen.appendChild(tdInputPersonen);
+    const inputPersonen = document.createElement('input');
+    inputPersonen.type = 'number';
+    inputPersonen.value = '4';
+    inputPersonen.id = 'anzahlPersonen';
+    tdInputPersonen.appendChild(inputPersonen);
+    const tdPersonenText = document.createElement('td');
+    tdPersonenText.innerText = 'Personen';
+    trPersonen.appendChild(tdPersonenText);
+    trPersonen.appendChild(document.createElement('td'));
     const tableSaveAbort = document.createElement('table');
     container.appendChild(tableSaveAbort);
     const trSaveAbort = document.createElement('tr');
@@ -54,6 +69,9 @@ function renderNewRecipe() {
     trSaveAbort.appendChild(tdAbort);
     const bttnAbort = document.createElement('button');
     bttnAbort.classList.add('fas', 'fa-times');
+    bttnAbort.addEventListener('click', () => {
+        openListview();
+    });
     tdAbort.appendChild(bttnAbort);
     const tdSave = document.createElement('td');
     trSaveAbort.appendChild(tdSave);
@@ -125,13 +143,14 @@ function saveRecipe(isUpdate = false, id = '') {
 }
 function getIngredients() {
     let ingredients = [];
+    const anzahlPersonen = parseInt(document.getElementById('anzahlPersonen').value);
     const names = Array.from(document.getElementsByClassName('zutatName'));
     const amounts = Array.from(document.getElementsByClassName('zutatMenge'));
     const _units = Array.from(document.getElementsByClassName('zutatEinheit'));
     for (let i = 0; i < names.length; i++) {
         ingredients.push({
             name: names[i].value,
-            amount: parseInt(amounts[i].value),
+            amount: parseInt(amounts[i].value) / anzahlPersonen,
             unit: units[parseInt(_units[i].value)],
         });
     }

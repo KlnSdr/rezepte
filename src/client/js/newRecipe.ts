@@ -57,6 +57,27 @@ function renderNewRecipe(): HTMLDivElement {
     });
     container.appendChild(bttnNewZutat);
 
+    const tablePersonen: HTMLTableElement = document.createElement('table');
+    container.appendChild(tablePersonen);
+
+    const trPersonen: HTMLTableRowElement = document.createElement('tr');
+    tablePersonen.appendChild(trPersonen);
+
+    const tdInputPersonen: HTMLTableCellElement = document.createElement('td');
+    trPersonen.appendChild(tdInputPersonen);
+
+    const inputPersonen: HTMLInputElement = document.createElement('input');
+    inputPersonen.type = 'number';
+    inputPersonen.value = '4';
+    inputPersonen.id = 'anzahlPersonen';
+    tdInputPersonen.appendChild(inputPersonen);
+
+    const tdPersonenText: HTMLTableCellElement = document.createElement('td');
+    tdPersonenText.innerText = 'Personen';
+    trPersonen.appendChild(tdPersonenText);
+
+    trPersonen.appendChild(document.createElement('td'));
+
     const tableSaveAbort: HTMLTableElement = document.createElement('table');
     container.appendChild(tableSaveAbort);
 
@@ -68,6 +89,9 @@ function renderNewRecipe(): HTMLDivElement {
 
     const bttnAbort: HTMLButtonElement = document.createElement('button');
     bttnAbort.classList.add('fas', 'fa-times');
+    bttnAbort.addEventListener('click', () => {
+        openListview();
+    });
     tdAbort.appendChild(bttnAbort);
 
     const tdSave: HTMLTableCellElement = document.createElement('td');
@@ -161,6 +185,10 @@ function saveRecipe(isUpdate: boolean = false, id: string = '') {
 function getIngredients(): { name: string; amount: number; unit: string }[] {
     let ingredients: { name: string; amount: number; unit: string }[] = [];
 
+    const anzahlPersonen: number = parseInt(
+        (document.getElementById('anzahlPersonen') as HTMLInputElement).value
+    );
+
     const names: HTMLInputElement[] = Array.from(
         document.getElementsByClassName('zutatName')
     ) as HTMLInputElement[];
@@ -174,7 +202,7 @@ function getIngredients(): { name: string; amount: number; unit: string }[] {
     for (let i = 0; i < names.length; i++) {
         ingredients.push({
             name: names[i].value,
-            amount: parseInt(amounts[i].value),
+            amount: parseInt(amounts[i].value) / anzahlPersonen,
             unit: units[parseInt(_units[i].value)],
         });
     }

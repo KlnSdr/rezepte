@@ -1,6 +1,7 @@
 {
     "scripts": {
-        "start": "echo 'compiling!' && tsc && node src/server/server.js"
+        "start": "echo 'compiling!' && tsc && node src/server/server.js",
+        "build": "rm -rf docs/ && tsc && cp -r src/client docs/ && find docs/ -name '*.ts' -type f -delete"
     },
     "dependencies": {
         "@types/express": "^4.17.13",
